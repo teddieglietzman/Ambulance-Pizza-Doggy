@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://dn3ld6bbonuau"]
+
+[ext_resource type="Shader" uid="uid://d0a4cx3l201jt" path="res://sprites/grass.gdshader" id="1_kd2fs"]
+[ext_resource type="Texture2D" uid="uid://dn2uqln2pcfko" path="res://sprites/seamlessbw.png" id="2_465bl"]
+[ext_resource type="Texture2D" uid="uid://dncf36eo8h6fi" path="res://sprites/frontofambo.png" id="3_7ljtm"]
+[ext_resource type="Shader" uid="uid://cbhv46lewf3ye" path="res://sprites/inside_ambulance.gdshader" id="4_465bl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pp7cn"]
+shader = ExtResource("1_kd2fs")
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/strength = 0.3
+shader_parameter/fps = 6.0
+shader_parameter/noise = ExtResource("2_465bl")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7ljtm"]
+shader = ExtResource("4_465bl")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.3
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = true
+shader_parameter/roll = true
+shader_parameter/roll_speed = 4.0
+shader_parameter/roll_size = 0.0
+shader_parameter/roll_variation = 0.10000000149012
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.10000000475
+shader_parameter/aberration = 0.03
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 1.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.26
+shader_parameter/vignette_opacity = 0.5
+
+[node name="frontofambo" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_pp7cn")
+position = Vector2(-19.999998, -218.99998)
+scale = Vector2(1.7411125, 1.7112806)
+texture = ExtResource("3_7ljtm")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_7ljtm")
+offset_left = -591.0
+offset_top = -542.0
+offset_right = 10.0
+offset_bottom = 31.0
+scale = Vector2(1.8990421, 1.8952643)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-19, -198)
+zoom = Vector2(1.1, 1.1)
