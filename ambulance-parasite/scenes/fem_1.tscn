@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlwlfln34c6uq"]
+
+[ext_resource type="PackedScene" uid="uid://cl02y58lrm5tr" path="res://fem1.glb" id="1_qsor1"]
+
+[node name="fem1" type="Node3D"]
+
+[node name="fem1" parent="." instance=ExtResource("1_qsor1")]
+transform = Transform3D(1.9106853e-15, 4.371139e-08, 0.99999994, 0.99999994, -4.371139e-08, 0, 4.3711385e-08, 1, -4.3711385e-08, 0, 0, 0)

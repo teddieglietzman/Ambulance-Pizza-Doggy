@@ -1,0 +1,111 @@
+[gd_scene load_steps=16 format=3 uid="uid://bjvx0qivlv2wn"]
+
+[ext_resource type="Texture2D" uid="uid://bnlwn8xhx67vm" path="res://sprites/ui/infection_bar_sheet.png" id="1_dv3m1"]
+[ext_resource type="Shader" uid="uid://d0a4cx3l201jt" path="res://sprites/grass.gdshader" id="1_swde8"]
+[ext_resource type="Texture2D" uid="uid://dn2uqln2pcfko" path="res://sprites/seamlessbw.png" id="2_mc4bw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tguor"]
+shader = ExtResource("1_swde8")
+shader_parameter/scale = Vector2(0.2, 0.2)
+shader_parameter/strength = 4.0
+shader_parameter/fps = 6.0
+shader_parameter/noise = ExtResource("2_mc4bw")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8h437"]
+atlas = ExtResource("1_dv3m1")
+region = Rect2(864, 0, 108, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swde8"]
+atlas = ExtResource("1_dv3m1")
+region = Rect2(756, 0, 108, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mc4bw"]
+atlas = ExtResource("1_dv3m1")
+region = Rect2(648, 0, 108, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tguor"]
+atlas = ExtResource("1_dv3m1")
+region = Rect2(540, 0, 108, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_os4ng"]
+atlas = ExtResource("1_dv3m1")
+region = Rect2(432, 0, 108, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scwem"]
+atlas = ExtResource("1_dv3m1")
+region = Rect2(324, 0, 108, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rjsk"]
+atlas = ExtResource("1_dv3m1")
+region = Rect2(216, 0, 108, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x0ft1"]
+atlas = ExtResource("1_dv3m1")
+region = Rect2(108, 0, 108, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nixtb"]
+atlas = ExtResource("1_dv3m1")
+region = Rect2(0, 0, 108, 14)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rcnul"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8h437")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8h437")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swde8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mc4bw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tguor")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_os4ng")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scwem")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4rjsk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x0ft1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nixtb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_swde8"]
+shader = ExtResource("1_swde8")
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/strength = 1.0
+shader_parameter/fps = 6.0
+shader_parameter/noise = ExtResource("2_mc4bw")
+
+[node name="infection_bar" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_tguor")
+sprite_frames = SubResource("SpriteFrames_rcnul")
+frame_progress = 0.9435673
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_swde8")
+offset_left = -37.0
+offset_top = 22.000002
+offset_right = 67.0
+offset_bottom = 53.0
+scale = Vector2(0.7489059, 0.64704967)
+text = "LET US HELP"

@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://bfglvthi078c4"]
+
+[ext_resource type="Script" uid="uid://dkp3jriuu0cky" path="res://cpr_minigame.gd" id="1_2jrgg"]
+[ext_resource type="Texture2D" uid="uid://dj6fcacto53g7" path="res://sprites/ui/red_bar.png" id="2_40qy3"]
+[ext_resource type="Texture2D" uid="uid://bya8w41doxmau" path="res://sprites/ui/green_zone.png" id="3_m50jn"]
+[ext_resource type="Texture2D" uid="uid://bitwyhe01qo6a" path="res://sprites/ui/marker_line.png" id="4_xfdd2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m50jn"]
+size = Vector2(11, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jrgg"]
+size = Vector2(4, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_40qy3"]
+size = Vector2(2, 15)
+
+[node name="CPR_minigame" type="Node2D"]
+script = ExtResource("1_2jrgg")
+
+[node name="RedBar" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("2_40qy3")
+
+[node name="GreenZone" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("3_m50jn")
+
+[node name="green_area" type="Area2D" parent="GreenZone"]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GreenZone/green_area"]
+shape = SubResource("RectangleShape2D_m50jn")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="area_left" type="Area2D" parent="."]
+position = Vector2(-53, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="area_left"]
+shape = SubResource("RectangleShape2D_2jrgg")
+
+[node name="area_right" type="Area2D" parent="."]
+position = Vector2(53, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="area_right"]
+shape = SubResource("RectangleShape2D_2jrgg")
+
+[node name="MarkerLine" type="Sprite2D" parent="." groups=["marker"]]
+unique_name_in_owner = true
+z_index = 1
+texture = ExtResource("4_xfdd2")
+
+[node name="character_marker" type="CharacterBody2D" parent="MarkerLine" groups=["marker"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarkerLine/character_marker" groups=["marker"]]
+shape = SubResource("RectangleShape2D_40qy3")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -67.0
+offset_top = -36.0
+offset_right = -27.0
+offset_bottom = -13.0
+
+[connection signal="body_entered" from="GreenZone/green_area" to="." method="_on_green_area_body_entered"]
+[connection signal="body_exited" from="GreenZone/green_area" to="." method="_on_green_area_body_exited"]
+[connection signal="body_entered" from="area_left" to="." method="_on_area_left_body_entered"]
+[connection signal="body_entered" from="area_right" to="." method="_on_area_right_body_entered"]
