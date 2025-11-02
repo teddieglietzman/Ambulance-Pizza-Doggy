@@ -101,7 +101,7 @@ frame_progress = 0.9435673
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Button" type="Button" parent="CanvasLayer"]
+[node name="Button" type="Button" parent="."]
 material = SubResource("ShaderMaterial_swde8")
 offset_left = -37.0
 offset_top = 22.000002

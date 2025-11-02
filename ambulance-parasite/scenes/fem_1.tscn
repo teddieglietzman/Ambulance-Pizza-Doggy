@@ -104,8 +104,8 @@ shadow_mesh = SubResource("ArrayMesh_eh87f")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_osixk"]
 render_priority = 0
 shader = ExtResource("1_qsor1")
-shader_parameter/baseColor = Color(0.64705884, 0.44705883, 0.34117648, 1)
-shader_parameter/dissolveSlider = 0.49400007096499987
+shader_parameter/baseColor = Color(0.33558202, 0.5626527, 0.3655382, 1)
+shader_parameter/dissolveSlider = 0.4940000709649998
 shader_parameter/dissolveNoiseScale = 2.0
 shader_parameter/edgeNoiseScale = 0.0
 shader_parameter/edgesThickness = 0.01
@@ -138,3 +138,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.041305542)
 mesh = SubResource("ArrayMesh_qsor1")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_osixk")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-3.29097e-08, -0.6581509, 0.75288606, -2.8768685e-08, 0.75288606, 0.6581509, -1, 4.671897e-16, -4.371139e-08, 12.1519375, 9.321088, 10.754275)
