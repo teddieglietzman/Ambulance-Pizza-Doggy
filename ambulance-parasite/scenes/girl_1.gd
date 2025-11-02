@@ -15,11 +15,11 @@ const FRONTOFAMBO = preload("uid://dn3ld6bbonuau")
 func _ready() -> void:
 	var cpr = CPR_MINIGAME.instantiate()
 	ui_holder.add_child(cpr)
-	cpr.scale = Vector2(2,2)
+	cpr.scale = Vector2(2.5,2.5)
 	cpr.position = cpr_node.position
 	var infection_bar = INFECTION_BAR.instantiate()
 	ui_holder.add_child(infection_bar)
-	infection_bar.scale = Vector2(2,2)
+	infection_bar.scale = Vector2(2.5,2.5)
 	infection_bar.position = infection_node.position
 
 

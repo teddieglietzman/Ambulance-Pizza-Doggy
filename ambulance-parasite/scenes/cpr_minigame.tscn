@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://bfglvthi078c4"]
+[gd_scene load_steps=11 format=3 uid="uid://bfglvthi078c4"]
 
 [ext_resource type="Script" uid="uid://dkp3jriuu0cky" path="res://cpr_minigame.gd" id="1_2jrgg"]
 [ext_resource type="Texture2D" uid="uid://dj6fcacto53g7" path="res://sprites/ui/red_bar.png" id="2_40qy3"]
 [ext_resource type="Texture2D" uid="uid://bya8w41doxmau" path="res://sprites/ui/green_zone.png" id="3_m50jn"]
 [ext_resource type="Texture2D" uid="uid://bitwyhe01qo6a" path="res://sprites/ui/marker_line.png" id="4_xfdd2"]
+[ext_resource type="Shader" uid="uid://cbhv46lewf3ye" path="res://sprites/inside_ambulance.gdshader" id="5_40qy3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2l54m"]
 
@@ -17,6 +18,28 @@ size = Vector2(4, 15)
 size = Vector2(2, 15)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2jrgg"]
+shader = ExtResource("5_40qy3")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.3
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = true
+shader_parameter/roll = false
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 0.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 4.7499999933364734e-08
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = false
+shader_parameter/warp_amount = 0.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
 
 [node name="CPR_minigame" type="Node2D"]
 script = ExtResource("1_2jrgg")
@@ -62,19 +85,19 @@ texture = ExtResource("4_xfdd2")
 shape = SubResource("RectangleShape2D_40qy3")
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -67.0
 offset_top = -36.0
 offset_right = -27.0
 offset_bottom = -13.0
 
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
 material = SubResource("ShaderMaterial_2jrgg")
-offset_left = -50.0
-offset_top = -2.0
-offset_right = -10.0
-offset_bottom = 38.0
-scale = Vector2(1.3765798, 0.15797043)
+offset_left = -54.999996
+offset_top = -7.0
+offset_right = -14.999996
+offset_bottom = 33.0
+scale = Vector2(2.7665863, 0.35424906)
 color = Color(1, 1, 1, 0.41960785)
 
 [connection signal="body_entered" from="GreenZone/green_area" to="." method="_on_green_area_body_entered"]
