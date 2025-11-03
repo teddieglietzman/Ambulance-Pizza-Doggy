@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Ambulance Parasite"
-run/main_scene="uid://bfglvthi078c4"
+run/main_scene="uid://dn3ld6bbonuau"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -21,9 +21,57 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 [dialogic]
 
-directories/dch_directory={}
-directories/dtl_directory={}
-layout/style_directory={}
+directories/dch_directory={
+"us": "res://dialogue/us.dch",
+"you": "res://dialogue/you.dch"
+}
+directories/dtl_directory={
+"dead_patient": "res://dialogue/dead_patient.dtl",
+"infected_patient": "res://dialogue/infected_patient.dtl",
+"parasite_talk": "res://dialogue/parasite_talk.dtl",
+"saved_patient": "res://dialogue/saved_patient.dtl"
+}
+layout/style_directory={
+"": "res://dialogue/style.tres",
+"style": "res://dialogue/style.tres"
+}
+layout/style_list=["res://dialogue/style.tres"]
+layout/default_style="res://dialogue/style.tres"
+extensions_folder="res://addons/dialogic_additions"
+text/letter_speed=0.01
+text/initial_text_reveal_skippable=true
+text/text_reveal_skip_delay=0.1
+text/advance_delay=0.1
+text/autoadvance_per_character_delay=0.1
+text/autoadvance_ignored_characters_enabled=true
+animations/join_default_length=0.5
+animations/join_default_wait=true
+animations/leave_default_length=0.5
+animations/leave_default_wait=true
+animations/cross_fade_default_length=0.5
+save/autosave_delay=60.0
+save/encryption_on_exports_only=true
+choices/autofocus_first=true
+choices/delay=0.2
+choices/reveal_delay=0
+choices/reveal_by_input=false
+text/autopauses={}
+audio/channel_defaults={
+"": {
+"audio_bus": "",
+"fade_length": 0.0,
+"loop": false,
+"volume": 0.0
+},
+"music": {
+"audio_bus": "",
+"fade_length": 0.0,
+"loop": true,
+"volume": 0.0
+}
+}
+variables={}
+glossary/default_case_sensitive=true
 
 [editor_plugins]
 
