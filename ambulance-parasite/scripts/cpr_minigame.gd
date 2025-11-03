@@ -9,7 +9,7 @@ const SAVED_PATIENT = preload("uid://b5g1g2pil4yuo")
 @onready var health_bar: TextureProgressBar = $health_bar
 
 @onready var health_timer: Timer = $health_timer
-
+var new_health_timer 
 
 
 @onready var marker_line: Sprite2D = %MarkerLine
@@ -99,7 +99,9 @@ func patient_infected():
 
 
 func _on_let_us_help_pressed() -> void:
-	reset_speed()  
+	health_timer.start(100)
+	reset_speed()
+	heartbeat_audio.pitch_scale = 1.0
 	infection_points += 1
 	infection_animation.frame += 1 
 	if infection_points > 7 and infection_animation.frame == 8:
@@ -117,11 +119,11 @@ func patient_lost():
 	
 
 func check_health_points(health: float):
-	if health < -15.0:
+	if health < -1.0:
 		heartbeat_audio.pitch_scale = 1.15
-	if health < -30.0:
+	if health < -3.0:
 		heartbeat_audio.pitch_scale = 1.30
-	if health < -45.0:
+	if health < -4.0:
 		heartbeat_audio.pitch_scale = 1.45
 	
 

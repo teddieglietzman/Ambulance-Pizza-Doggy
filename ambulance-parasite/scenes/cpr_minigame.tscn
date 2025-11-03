@@ -279,6 +279,7 @@ offset_top = 11.999992
 offset_right = 65.0
 offset_bottom = 42.999992
 scale = Vector2(0.7489059, 0.64704967)
+focus_mode = 0
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 text = "LET US HELP"
 
