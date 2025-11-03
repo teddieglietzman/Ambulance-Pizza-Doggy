@@ -126,7 +126,7 @@ frame_progress = 0.9435673
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Button" type="Button" parent="."]
+[node name="let_us_help" type="Button" parent="."]
 material = SubResource("ShaderMaterial_swde8")
 offset_left = -39.0
 offset_top = 11.999992
@@ -136,7 +136,8 @@ scale = Vector2(0.7489059, 0.64704967)
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 text = "LET US HELP"
 
-[node name="ColorRect2" type="ColorRect" parent="Button"]
+[node name="ColorRect2" type="ColorRect" parent="let_us_help"]
+visible = false
 material = SubResource("ShaderMaterial_os4ng")
 layout_mode = 0
 offset_left = 1.3352833
@@ -144,7 +145,6 @@ offset_top = -1.1444092e-05
 offset_right = 41.33528
 offset_bottom = 39.99999
 scale = Vector2(2.5723014, 0.82314897)
-color = Color(1, 1, 1, 0.41960785)
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_os4ng")

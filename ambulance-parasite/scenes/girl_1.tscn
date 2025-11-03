@@ -1,8 +1,8 @@
 [gd_scene load_steps=31 format=4 uid="uid://cn5u13enjln3e"]
 
-[ext_resource type="Texture2D" uid="uid://d1h7lh446g3v5" path="res://Sand_007_normal.jpg" id="1_46u1g"]
+[ext_resource type="Texture2D" uid="uid://d1h7lh446g3v5" path="res://sprites/Sand_007_normal.jpg" id="1_46u1g"]
 [ext_resource type="PackedScene" uid="uid://4gldqkd2e76u" path="res://meshes/glTF/Grass_Common_Short.gltf" id="1_byi3g"]
-[ext_resource type="Script" uid="uid://c61aomb14e0s6" path="res://scenes/girl_1.gd" id="1_ym2hw"]
+[ext_resource type="Script" uid="uid://c61aomb14e0s6" path="res://scripts/girl_1.gd" id="1_ym2hw"]
 [ext_resource type="PackedScene" uid="uid://dqxrrrqr1rdfy" path="res://meshes/glTF/CommonTree_1.gltf" id="3_46u1g"]
 [ext_resource type="PackedScene" uid="uid://dwvgwoig4p1xm" path="res://meshes/glTF/Pebble_Round_1.gltf" id="4_q8sru"]
 [ext_resource type="PackedScene" uid="uid://cfq3gyilv8cvn" path="res://meshes/glTF/CommonTree_4.gltf" id="5_q8sru"]
@@ -438,8 +438,8 @@ scale = Vector2(28.813759, 16.190397)
 
 [node name="cpr_node" type="Node2D" parent="ui_holder"]
 unique_name_in_owner = true
-position = Vector2(287, 200)
+position = Vector2(287, 280)
 
 [node name="infection_node" type="Node2D" parent="ui_holder"]
 unique_name_in_owner = true
-position = Vector2(845, 200)
+position = Vector2(845, 280)

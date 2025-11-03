@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=4 uid="uid://dlwlfln34c6uq"]
 
-[ext_resource type="Shader" uid="uid://8p7q244s6agy" path="res://scenes/blood.gdshader" id="1_osixk"]
-[ext_resource type="Shader" uid="uid://bmq1ib4txdd0o" path="res://body.gdshader" id="1_qsor1"]
-[ext_resource type="Shader" uid="uid://codtqmy8iuyu8" path="res://scenes/fades.gdshader" id="1_wndl2"]
+[ext_resource type="Shader" uid="uid://8p7q244s6agy" path="res://shaders/blood.gdshader" id="1_osixk"]
+[ext_resource type="Shader" uid="uid://bmq1ib4txdd0o" path="res://shaders/body.gdshader" id="1_qsor1"]
+[ext_resource type="Shader" uid="uid://codtqmy8iuyu8" path="res://shaders/fades.gdshader" id="1_wndl2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dc6jb"]
 resource_name = "Material.001"
