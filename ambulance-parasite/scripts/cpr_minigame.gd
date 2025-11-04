@@ -5,6 +5,7 @@ const INFECTED_PATIENT = preload("uid://b0x72lmin5ddc")
 const SAVED_PATIENT = preload("uid://b5g1g2pil4yuo")
 
 @onready var transition_boom_audio: AudioStreamPlayer = $transition_boom_audio
+@onready var patient_wakes_up_audio: AudioStreamPlayer = $patient_wakes_up_audio
 
 @onready var black_screen: ColorRect = $black_screen
 
@@ -12,6 +13,8 @@ const SAVED_PATIENT = preload("uid://b5g1g2pil4yuo")
 
 @onready var health_timer: Timer = $health_timer
 var new_health_timer 
+@onready var red_bar: Sprite2D = %RedBar
+
 
 
 @onready var marker_line: Sprite2D = %MarkerLine
@@ -21,7 +24,7 @@ var new_health_timer
 @onready var infection_animation: AnimatedSprite2D = %infection_animation
 @onready var heartbeat_audio: AudioStreamPlayer = $heartbeat_audio
 
-var marker_speed = 30
+var marker_speed = clampf(30, 30, 60)
 var marker_range_array = [-54, 54]
 var direction = 1
 
@@ -118,7 +121,7 @@ func _on_let_us_help_pressed() -> void:
 func _input(event: InputEvent) -> void:
 	if Input.is_action_pressed("Interact"):
 		debug_label.text = str(health_points)
-	if Input.is_action_pressed("Interact") and health_points < -6.0:
+	if Input.is_action_pressed("Interact") and health_points < -60.0:
 		patient_lost()
 
 func patient_lost():
@@ -133,11 +136,11 @@ func patient_lost():
 	
 
 func check_health_points(health: float):
-	if health < -1.0:
+	if health < -15.0:
 		heartbeat_audio.pitch_scale = 1.15
-	if health < -3.0:
+	if health < -30.0:
 		heartbeat_audio.pitch_scale = 1.30
-	if health < -4.0:
+	if health < -45.0:
 		heartbeat_audio.pitch_scale = 1.45
 	
 
@@ -149,13 +152,10 @@ func update_health():
 	health_bar.value = health_timer.time_left
 func patient_health():
 	if health_points > 40.0:
-		patient_saved()
+		saved_paused_animations()
 
 func patient_saved():
-	heartbeat_audio.stop()
-	await get_tree().create_timer(1.0).timeout
-	transition_boom_audio.play()
-	await get_tree().create_timer(9).timeout
+	
 	get_tree().change_scene_to_packed(SAVED_PATIENT)
 
 
@@ -167,6 +167,25 @@ func pause_animations():
 	health_bar.material.set_shader_parameter("beat_speed", 0)
 	await get_tree().create_timer(1.1).timeout
 	black_screen.show()
+	marker_line.hide()
+	green_zone.hide()
+	red_bar.hide()
 	await get_tree().create_timer(2.9).timeout
 	black_screen.set_material(null)
-	
+	  
+func saved_paused_animations():
+	marker_speed = 0
+	marker_line.hide()
+	green_zone.hide()
+	red_bar.hide()
+	health_bar.material.set_shader_parameter("beat_speed", 0)
+	health_timer.paused = true
+	black_screen.set_material(null)
+	black_screen.show()
+	await get_tree().create_timer(1.5).timeout
+	heartbeat_audio.stop()
+
+	await get_tree().create_timer(1.6).timeout
+	patient_wakes_up_audio.play()
+	await get_tree().create_timer(7).timeout
+	patient_saved()

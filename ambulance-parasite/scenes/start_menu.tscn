@@ -1,0 +1,127 @@
+[gd_scene load_steps=9 format=3 uid="uid://sg1rrakciwm1"]
+
+[ext_resource type="Script" uid="uid://o2a0silaapn0" path="res://scripts/start_menu.gd" id="1_ouf4f"]
+[ext_resource type="Shader" uid="uid://d0a4cx3l201jt" path="res://sprites/grass.gdshader" id="2_4v6gu"]
+[ext_resource type="FontFile" uid="uid://ctvj013nciqhp" path="res://fonts/vcr_osd_mono_1.001.ttf" id="2_thu50"]
+[ext_resource type="Shader" uid="uid://cbhv46lewf3ye" path="res://sprites/inside_ambulance.gdshader" id="3_m7x51"]
+[ext_resource type="Texture2D" uid="uid://dn2uqln2pcfko" path="res://sprites/seamlessbw.png" id="3_nxjfj"]
+[ext_resource type="AudioStream" uid="uid://md83ip1j5tqy" path="res://sounds/radio-scan.mp3" id="4_h61rw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u4qax"]
+shader = ExtResource("2_4v6gu")
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/strength = 0.5
+shader_parameter/fps = 6.0
+shader_parameter/noise = ExtResource("3_nxjfj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h61rw"]
+shader = ExtResource("3_m7x51")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.3
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = true
+shader_parameter/roll = true
+shader_parameter/roll_speed = 4.0
+shader_parameter/roll_size = 0.0
+shader_parameter/roll_variation = 0.10000000149012
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.10000000475
+shader_parameter/aberration = 0.03
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 1.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.26
+shader_parameter/vignette_opacity = 0.5
+
+[node name="start_menu" type="Node2D"]
+script = ExtResource("1_ouf4f")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label2" type="RichTextLabel" parent="CanvasLayer"]
+z_index = 1
+material = SubResource("ShaderMaterial_u4qax")
+offset_left = 248.0
+offset_top = 216.0
+offset_right = 445.0
+offset_bottom = 276.0
+scale = Vector2(3.3563578, 2.4210148)
+theme_override_fonts/normal_font = ExtResource("2_thu50")
+bbcode_enabled = true
+text = "[shake rate=20.0 level=5 connected=1] 
+let us help :)
+
+[/shake]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="black_screen" type="ColorRect" parent="CanvasLayer"]
+offset_left = -88.0
+offset_top = -52.00003
+offset_right = -48.0
+offset_bottom = -12.0000305
+rotation = -0.009715873
+scale = Vector2(32.862633, 20.545767)
+color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_h61rw")
+offset_left = -166.0
+offset_top = -138.0
+offset_right = 435.0
+offset_bottom = 435.0
+scale = Vector2(2.4924893, 1.6412408)
+
+[node name="Start" type="Button" parent="CanvasLayer"]
+visible = false
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 216.0
+offset_top = -3.9999695
+offset_right = 271.0
+offset_bottom = 19.00003
+grow_vertical = 2
+scale = Vector2(3.2284362, 2.6265693)
+theme_override_fonts/font = ExtResource("2_thu50")
+text = "START"
+
+[node name="Quit" type="Button" parent="CanvasLayer"]
+visible = false
+offset_left = 736.0
+offset_top = 319.99997
+offset_right = 783.0
+offset_bottom = 350.99997
+scale = Vector2(3.904465, 2.2586846)
+theme_override_fonts/font = ExtResource("2_thu50")
+text = "QUIT"
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+visible = false
+offset_left = 8.0000305
+offset_top = 567.99994
+offset_right = 262.00003
+offset_bottom = 590.99994
+scale = Vector2(1.1555609, 2.807099)
+theme_override_fonts/font = ExtResource("2_thu50")
+text = "HEADPHONES RECOMMENDED "
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="radio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_h61rw")
+volume_db = 5.0
+autoplay = true
+
+[connection signal="pressed" from="CanvasLayer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="CanvasLayer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="finished" from="radio" to="." method="_on_radio_finished"]

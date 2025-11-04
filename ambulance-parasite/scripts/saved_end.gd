@@ -1,6 +1,7 @@
 extends Node2D
 
-const FRONTOFAMBO = preload("uid://dn3ld6bbonuau")
+const ENDING_FRONTOFAMBO = preload("uid://bfda1ehnhdwre")
+
 @onready var patient_saved: AudioStreamPlayer = $patient_saved
 @onready var black_screen: ColorRect = $black_screen
 
@@ -15,7 +16,7 @@ func _ready() -> void:
 
 func _on_timeline_ended():
 	Dialogic.timeline_ended.disconnect(_on_timeline_ended)
-	get_tree().change_scene_to_packed(FRONTOFAMBO)
+	get_tree().change_scene_to_packed(ENDING_FRONTOFAMBO)
 
 
 

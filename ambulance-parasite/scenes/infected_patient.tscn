@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0x72lmin5ddc"]
+[gd_scene load_steps=8 format=3 uid="uid://b0x72lmin5ddc"]
 
 [ext_resource type="Script" uid="uid://bmtt66548ps7i" path="res://scripts/infected_end.gd" id="1_es2hc"]
 [ext_resource type="Texture2D" uid="uid://drjmcr1lfwxv1" path="res://sprites/eugene-chystiakov-IAxi3Bohy9g-unsplash.jpg" id="2_m2wvh"]
 [ext_resource type="Shader" uid="uid://cbhv46lewf3ye" path="res://sprites/inside_ambulance.gdshader" id="3_6yua6"]
-[ext_resource type="AudioStream" uid="uid://dy3byucxs56a8" path="res://sounds/ost/mp3/infected_patient.mp3" id="4_m2wvh"]
+[ext_resource type="AudioStream" uid="uid://du476nmj7mlfx" path="res://sounds/ost/mp3/Special Ambiences/void_mp_emh_1.wav" id="4_6yua6"]
+[ext_resource type="AudioStream" uid="uid://dj43lb845tnat" path="res://sounds/ost/mp3/parasite_boom.mp3" id="5_unq7r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1jisq"]
 
@@ -54,7 +55,11 @@ position = Vector2(-16, 46)
 zoom = Vector2(1.2, 1.2)
 
 [node name="patient_infected" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_m2wvh")
+stream = ExtResource("4_6yua6")
+
+[node name="parasite_boom" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_unq7r")
+volume_db = -15.0
 
 [node name="black_screen" type="ColorRect" parent="."]
 visible = false

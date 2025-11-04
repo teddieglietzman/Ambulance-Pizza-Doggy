@@ -35,4 +35,5 @@ void fragment() {
 	vec2 squiggle_uv = UV + direction * strength * 0.005;
 	
 	COLOR = texture(TEXTURE, squiggle_uv) * modulate;
+	
 }

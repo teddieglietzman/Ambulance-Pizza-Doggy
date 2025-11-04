@@ -1,13 +1,19 @@
-[gd_scene load_steps=11 format=3 uid="uid://dn3ld6bbonuau"]
+[gd_scene load_steps=17 format=3 uid="uid://dn3ld6bbonuau"]
 
 [ext_resource type="Shader" uid="uid://d0a4cx3l201jt" path="res://sprites/grass.gdshader" id="1_kd2fs"]
 [ext_resource type="Script" uid="uid://6yl1018b24wp" path="res://scripts/frontofambo.gd" id="1_pp7cn"]
+[ext_resource type="Texture2D" uid="uid://bvlyyt1ejiljw" path="res://city_bg.jpg" id="2_44cvx"]
 [ext_resource type="Texture2D" uid="uid://dn2uqln2pcfko" path="res://sprites/seamlessbw.png" id="2_465bl"]
-[ext_resource type="Texture2D" uid="uid://dncf36eo8h6fi" path="res://sprites/frontofambo.png" id="3_7ljtm"]
 [ext_resource type="Shader" uid="uid://cbhv46lewf3ye" path="res://sprites/inside_ambulance.gdshader" id="4_465bl"]
 [ext_resource type="AudioStream" uid="uid://bya7hkluipnhh" path="res://sounds/ambulance.mp3" id="5_7ljtm"]
+[ext_resource type="Texture2D" uid="uid://csibgm20wja5i" path="res://sprites/2frontofambo.png" id="5_44cvx"]
 [ext_resource type="AudioStream" uid="uid://md83ip1j5tqy" path="res://sounds/radio-scan.mp3" id="7_eesfa"]
 [ext_resource type="AudioStream" uid="uid://cb80qk3cu50f0" path="res://sounds/radio_off.mp3" id="8_rpf0g"]
+[ext_resource type="AudioStream" uid="uid://b8hy8l3lv1vav" path="res://sounds/ost/mp3/garbled_radio.wav" id="9_rpf0g"]
+[ext_resource type="AudioStream" uid="uid://irgkauo6fryy" path="res://sounds/ost/mp3/arrival_at_scene.mp3" id="10_ghyby"]
+[ext_resource type="AudioStream" uid="uid://cugmunexmf5xp" path="res://sounds/ost/mp3/parasite_talking.mp3" id="12_bgr5a"]
+[ext_resource type="AudioStream" uid="uid://du476nmj7mlfx" path="res://sounds/ost/mp3/Special Ambiences/void_mp_emh_1.wav" id="13_imudj"]
+[ext_resource type="AudioStream" uid="uid://bv30jc7x5ljvm" path="res://sounds/ost/mp3/parasite_respond.mp3" id="14_77jts"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pp7cn"]
 shader = ExtResource("1_kd2fs")
@@ -34,7 +40,7 @@ shader_parameter/noise_speed = 5.0
 shader_parameter/static_noise_intensity = 0.10000000475
 shader_parameter/aberration = 0.03
 shader_parameter/brightness = 1.4
-shader_parameter/discolor = true
+shader_parameter/discolor = false
 shader_parameter/warp_amount = 1.0
 shader_parameter/clip_warp = false
 shader_parameter/vignette_intensity = 0.26
@@ -43,11 +49,16 @@ shader_parameter/vignette_opacity = 0.5
 [node name="frontofambo" type="Node2D"]
 script = ExtResource("1_pp7cn")
 
+[node name="CityBg" type="Sprite2D" parent="."]
+position = Vector2(12, -270)
+texture = ExtResource("2_44cvx")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.12941177, 0.14901961, 0.18039216, 1)
 material = SubResource("ShaderMaterial_pp7cn")
-position = Vector2(-19.999998, -218.99998)
-scale = Vector2(1.7411125, 1.7112806)
-texture = ExtResource("3_7ljtm")
+position = Vector2(-30, -219.00002)
+scale = Vector2(1.8455563, 1.7112806)
+texture = ExtResource("5_44cvx")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_7ljtm")
@@ -66,10 +77,12 @@ stream = ExtResource("5_7ljtm")
 
 [node name="radio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_eesfa")
+volume_db = 4.0
 autoplay = true
 
 [node name="radio_off" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_rpf0g")
+volume_db = -1.0
 
 [node name="black_screen" type="ColorRect" parent="."]
 visible = false
@@ -81,6 +94,27 @@ rotation = -0.009715873
 scale = Vector2(32.862633, 20.545767)
 color = Color(0.101960786, 0.101960786, 0.101960786, 1)
 
+[node name="garbled_radio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_rpf0g")
+
+[node name="arrival_audio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_ghyby")
+
+[node name="patient_infected" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_bgr5a")
+volume_db = -10.0
+
+[node name="bg_void" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_imudj")
+volume_db = -10.0
+autoplay = true
+
+[node name="parasite_response" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_77jts")
+
 [connection signal="finished" from="ambo_sound" to="." method="_on_ambo_sound_finished"]
 [connection signal="finished" from="radio" to="." method="_on_radio_finished"]
 [connection signal="finished" from="radio_off" to="." method="_on_radio_off_finished"]
+[connection signal="finished" from="arrival_audio" to="." method="_on_arrival_audio_finished"]
+[connection signal="finished" from="patient_infected" to="." method="_on_patient_infected_finished"]
+[connection signal="finished" from="bg_void" to="." method="_on_bg_void_finished"]

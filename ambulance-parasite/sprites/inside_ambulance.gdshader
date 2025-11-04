@@ -166,5 +166,5 @@ void fragment()
 
     COLOR = text;
 	
-	COLOR.a = 0.5;
+	
 }

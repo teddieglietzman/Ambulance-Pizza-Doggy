@@ -1,3 +1,5 @@
+join infected_patient center
 I greatly appreciate you saving me.
 I feel a bit strange...
-[shake rate=20.0 level=5 connected=1] [b]...but I'm sure it will all be fine.  [/b] [/shake]
+[signal arg="talk"]
+[shake rate=20.0 level=5 connected=1] ...but I'm sure it will all be fine.  [/shake]

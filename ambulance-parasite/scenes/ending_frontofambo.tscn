@@ -1,0 +1,129 @@
+[gd_scene load_steps=11 format=3 uid="uid://bfda1ehnhdwre"]
+
+[ext_resource type="Script" uid="uid://b2fww7mmsge3w" path="res://scripts/ending_frontofambo.gd" id="1_8qra3"]
+[ext_resource type="Texture2D" uid="uid://bvlyyt1ejiljw" path="res://city_bg.jpg" id="2_nasic"]
+[ext_resource type="Shader" uid="uid://cbhv46lewf3ye" path="res://sprites/inside_ambulance.gdshader" id="5_axkuf"]
+[ext_resource type="AudioStream" uid="uid://bya7hkluipnhh" path="res://sounds/ambulance.mp3" id="6_os5l2"]
+[ext_resource type="AudioStream" uid="uid://md83ip1j5tqy" path="res://sounds/radio-scan.mp3" id="7_nur6v"]
+[ext_resource type="FontFile" uid="uid://ctvj013nciqhp" path="res://fonts/vcr_osd_mono_1.001.ttf" id="8_8qra3"]
+[ext_resource type="AudioStream" uid="uid://cb80qk3cu50f0" path="res://sounds/radio_off.mp3" id="8_gpmyn"]
+[ext_resource type="AudioStream" uid="uid://8gq17cb6bx4y" path="res://sounds/ost/mp3/piano_interlude.mp3" id="9_6j2cs"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8qra3"]
+load_path = "res://.godot/imported/frontofambo.png-5edfe60a0046ce6bafaaf26d520aa08a.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7ljtm"]
+shader = ExtResource("5_axkuf")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.3
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = true
+shader_parameter/roll = true
+shader_parameter/roll_speed = 4.0
+shader_parameter/roll_size = 0.0
+shader_parameter/roll_variation = 0.10000000149012
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.10000000475
+shader_parameter/aberration = 0.03
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 1.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.26
+shader_parameter/vignette_opacity = 0.5
+
+[node name="frontofambo" type="Node2D"]
+script = ExtResource("1_8qra3")
+
+[node name="CityBg" type="Sprite2D" parent="."]
+position = Vector2(-195, 13)
+texture = ExtResource("2_nasic")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.12941177, 0.14901961, 0.18039216, 1)
+position = Vector2(-19.999998, -218.99998)
+scale = Vector2(1.7411125, 1.7112806)
+texture = SubResource("CompressedTexture2D_8qra3")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_7ljtm")
+offset_left = -591.0
+offset_top = -542.0
+offset_right = 10.0
+offset_bottom = 31.0
+scale = Vector2(1.8990421, 1.8952643)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-16, -204)
+zoom = Vector2(1.1, 1.1)
+
+[node name="ambo_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_os5l2")
+
+[node name="radio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_nur6v")
+autoplay = true
+
+[node name="radio_off" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_gpmyn")
+
+[node name="piano_theme" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_6j2cs")
+
+[node name="black_screen" type="ColorRect" parent="."]
+visible = false
+offset_left = -668.0
+offset_top = -574.0
+offset_right = -628.0
+offset_bottom = -534.0
+rotation = -0.009715873
+scale = Vector2(32.862633, 20.545767)
+color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+
+[node name="Label" type="RichTextLabel" parent="."]
+offset_left = -313.00003
+offset_top = -61.000008
+offset_right = -116.00003
+offset_bottom = -1.0000076
+scale = Vector2(3.3563578, 2.4210148)
+theme_override_fonts/normal_font = ExtResource("8_8qra3")
+bbcode_enabled = true
+text = "[shake rate=20.0 level=5 connected=1] 
+THANKS FOR PLAYING :) 
+
+[/shake]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Start" type="Button" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -519.99994
+offset_top = 28.999998
+offset_right = -445.99994
+offset_bottom = 52.0
+grow_vertical = 2
+scale = Vector2(1.9275517, 1.6737732)
+theme_override_fonts/font = ExtResource("8_8qra3")
+text = "RESTART"
+
+[node name="Quit" type="Button" parent="."]
+offset_left = 360.00003
+offset_top = 29.0
+offset_right = 407.00003
+offset_bottom = 60.0
+scale = Vector2(3.0130672, 1.4831741)
+theme_override_fonts/font = ExtResource("8_8qra3")
+text = "QUIT"
+
+[connection signal="finished" from="ambo_sound" to="." method="_on_ambo_sound_finished"]
+[connection signal="finished" from="radio" to="." method="_on_radio_finished"]
+[connection signal="finished" from="radio_off" to="." method="_on_radio_off_finished"]
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
