@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b5g1g2pil4yuo"]
+[gd_scene load_steps=7 format=3 uid="uid://b5g1g2pil4yuo"]
 
 [ext_resource type="Script" uid="uid://bs4wplyschmxj" path="res://scripts/saved_end.gd" id="1_ptrfa"]
 [ext_resource type="Texture2D" uid="uid://drjmcr1lfwxv1" path="res://sprites/eugene-chystiakov-IAxi3Bohy9g-unsplash.jpg" id="2_ma7jc"]
 [ext_resource type="Shader" uid="uid://cbhv46lewf3ye" path="res://sprites/inside_ambulance.gdshader" id="3_3lpji"]
+[ext_resource type="AudioStream" uid="uid://dslto2bb5fq5t" path="res://sounds/ost/mp3/saved_patient.mp3" id="4_ma7jc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1jisq"]
 
@@ -51,3 +52,16 @@ scale = Vector2(1.8990421, 1.8952643)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-16, 46)
 zoom = Vector2(1.2, 1.2)
+
+[node name="patient_saved" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ma7jc")
+
+[node name="black_screen" type="ColorRect" parent="."]
+visible = false
+offset_left = -670.99994
+offset_top = -468.00006
+offset_right = -630.99994
+offset_bottom = -428.00006
+rotation = -0.009715873
+scale = Vector2(32.862633, 20.545767)
+color = Color(0.101960786, 0.101960786, 0.101960786, 1)

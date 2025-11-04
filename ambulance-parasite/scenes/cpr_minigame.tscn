@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bfglvthi078c4"]
+[gd_scene load_steps=35 format=3 uid="uid://bfglvthi078c4"]
 
 [ext_resource type="Script" uid="uid://dkp3jriuu0cky" path="res://scripts/cpr_minigame.gd" id="1_2jrgg"]
 [ext_resource type="Texture2D" uid="uid://dj6fcacto53g7" path="res://sprites/ui/red_bar.png" id="2_40qy3"]
@@ -11,6 +11,8 @@
 [ext_resource type="AudioStream" uid="uid://b3mgeflmb14ua" path="res://sounds/heartbeats-61.mp3" id="9_lqg2v"]
 [ext_resource type="Shader" uid="uid://cdaghx2ghqgri" path="res://shaders/heartbeat.gdshader" id="10_8p4xw"]
 [ext_resource type="Texture2D" uid="uid://c3ufenux1hnva" path="res://sprites/ui/health_bar.png" id="11_4hrb3"]
+[ext_resource type="AudioStream" uid="uid://cbdnmfx5brho5" path="res://sounds/ost/mp3/transition_boom.mp3" id="12_8liec"]
+[ext_resource type="Shader" uid="uid://csga0icddpyx4" path="res://shaders/shake.gdshader" id="13_1uvk3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2l54m"]
 
@@ -169,6 +171,13 @@ shader_parameter/beat_speed = 0.99000004376512
 shader_parameter/pulse_strength = 0.050000002375
 shader_parameter/pulse_mode = 2
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1y4gs"]
+shader = ExtResource("13_1uvk3")
+shader_parameter/hit_effect = 1.0
+shader_parameter/shake_intensity = 10.0
+shader_parameter/flash_speed = 30.0
+shader_parameter/flash_color = Color(0.51375306, 1.11904e-06, 1.92523e-07, 1)
+
 [node name="CPR_minigame" type="Node2D"]
 script = ExtResource("1_2jrgg")
 
@@ -316,9 +325,25 @@ wait_time = 100.0
 one_shot = true
 autostart = true
 
+[node name="transition_boom_audio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_8liec")
+
+[node name="black_screen" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_1y4gs")
+offset_left = -210.00002
+offset_top = -142.0
+offset_right = -170.00002
+offset_bottom = -102.0
+rotation = -0.009715873
+scale = Vector2(15.735816, 7.8955703)
+mouse_filter = 2
+color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+
 [connection signal="body_entered" from="GreenZone/green_area" to="." method="_on_green_area_body_entered"]
 [connection signal="body_exited" from="GreenZone/green_area" to="." method="_on_green_area_body_exited"]
 [connection signal="body_entered" from="area_left" to="." method="_on_area_left_body_entered"]
 [connection signal="body_entered" from="area_right" to="." method="_on_area_right_body_entered"]
 [connection signal="pressed" from="infection_bar/let_us_help" to="." method="_on_let_us_help_pressed"]
 [connection signal="finished" from="heartbeat_audio" to="." method="_on_heartbeat_audio_finished"]
+[connection signal="timeout" from="health_timer" to="." method="_on_health_timer_timeout"]

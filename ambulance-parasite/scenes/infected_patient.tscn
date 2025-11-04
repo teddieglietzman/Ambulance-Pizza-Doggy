@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b0x72lmin5ddc"]
+[gd_scene load_steps=7 format=3 uid="uid://b0x72lmin5ddc"]
 
 [ext_resource type="Script" uid="uid://bmtt66548ps7i" path="res://scripts/infected_end.gd" id="1_es2hc"]
 [ext_resource type="Texture2D" uid="uid://drjmcr1lfwxv1" path="res://sprites/eugene-chystiakov-IAxi3Bohy9g-unsplash.jpg" id="2_m2wvh"]
 [ext_resource type="Shader" uid="uid://cbhv46lewf3ye" path="res://sprites/inside_ambulance.gdshader" id="3_6yua6"]
+[ext_resource type="AudioStream" uid="uid://dy3byucxs56a8" path="res://sounds/ost/mp3/infected_patient.mp3" id="4_m2wvh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1jisq"]
 
@@ -51,3 +52,16 @@ scale = Vector2(1.8990421, 1.8952643)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-16, 46)
 zoom = Vector2(1.2, 1.2)
+
+[node name="patient_infected" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_m2wvh")
+
+[node name="black_screen" type="ColorRect" parent="."]
+visible = false
+offset_left = -678.99994
+offset_top = -377.00006
+offset_right = -638.99994
+offset_bottom = -337.00006
+rotation = -0.009715873
+scale = Vector2(32.862633, 20.545767)
+color = Color(0.101960786, 0.101960786, 0.101960786, 1)

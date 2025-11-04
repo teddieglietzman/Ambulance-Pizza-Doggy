@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dvbwvgt47omii"]
+[gd_scene load_steps=8 format=3 uid="uid://dvbwvgt47omii"]
 
 [ext_resource type="Script" uid="uid://dl7ebxiswiuh0" path="res://scripts/lost_patient_end.gd" id="1_q743x"]
 [ext_resource type="Texture2D" uid="uid://drjmcr1lfwxv1" path="res://sprites/eugene-chystiakov-IAxi3Bohy9g-unsplash.jpg" id="2_ckovu"]
 [ext_resource type="Shader" uid="uid://cbhv46lewf3ye" path="res://sprites/inside_ambulance.gdshader" id="3_o5l8h"]
 [ext_resource type="Texture2D" uid="uid://dm8p636errtri" path="res://sprites/nobody.png" id="4_ckovu"]
+[ext_resource type="AudioStream" uid="uid://qganh8ujxvnx" path="res://sounds/ost/mp3/patient_lost.mp3" id="5_o5l8h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1jisq"]
 
@@ -58,3 +59,16 @@ visible = false
 position = Vector2(28.000006, -27.999992)
 scale = Vector2(10, 10)
 texture = ExtResource("4_ckovu")
+
+[node name="patient_lost" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_o5l8h")
+
+[node name="black_screen" type="ColorRect" parent="."]
+visible = false
+offset_left = -690.99994
+offset_top = -432.00006
+offset_right = -650.99994
+offset_bottom = -392.00006
+rotation = -0.009715873
+scale = Vector2(32.862633, 20.545767)
+color = Color(0.101960786, 0.101960786, 0.101960786, 1)

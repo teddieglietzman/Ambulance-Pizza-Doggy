@@ -4,7 +4,9 @@ const DEAD_PATIENT = preload("uid://dvbwvgt47omii")
 const INFECTED_PATIENT = preload("uid://b0x72lmin5ddc")
 const SAVED_PATIENT = preload("uid://b5g1g2pil4yuo")
 
+@onready var transition_boom_audio: AudioStreamPlayer = $transition_boom_audio
 
+@onready var black_screen: ColorRect = $black_screen
 
 @onready var health_bar: TextureProgressBar = $health_bar
 
@@ -34,7 +36,9 @@ var marker_y : float
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	heartbeat_audio.play()
-
+	
+	
+	#change from WAV and try again 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -53,8 +57,7 @@ func _physics_process(delta: float) -> void:
 	if !green and Input.is_action_just_pressed("Interact"):
 		health_points -= 0.5
 		check_health_points(health_points)
-	if health_points < -60.0:
-		patient_lost()
+	
 
 
 func _on_area_left_body_entered(body: Node2D) -> void:
@@ -84,7 +87,7 @@ func _on_green_area_body_exited(body: Node2D) -> void:
 	if green_points > 2:
 		green = false
 		increase_speed()
-		
+	
 		
 func increase_speed():
 	marker_speed += 2
@@ -93,8 +96,13 @@ func reset_speed():
 	marker_speed = 30
 	
 	
-	
+	#working for infected but not for lost patient???
 func patient_infected():
+	pause_animations()
+	heartbeat_audio.stop()
+	await get_tree().create_timer(1.0).timeout
+	transition_boom_audio.play()
+	await get_tree().create_timer(9).timeout
 	get_tree().change_scene_to_packed(INFECTED_PATIENT)
 
 
@@ -110,9 +118,15 @@ func _on_let_us_help_pressed() -> void:
 func _input(event: InputEvent) -> void:
 	if Input.is_action_pressed("Interact"):
 		debug_label.text = str(health_points)
+	if Input.is_action_pressed("Interact") and health_points < -6.0:
+		patient_lost()
 
 func patient_lost():
-	
+	pause_animations()
+	heartbeat_audio.stop()
+	await get_tree().create_timer(1.0).timeout
+	transition_boom_audio.play()
+	await get_tree().create_timer(9).timeout
 	get_tree().change_scene_to_packed(DEAD_PATIENT)
 	
 
@@ -138,4 +152,21 @@ func patient_health():
 		patient_saved()
 
 func patient_saved():
+	heartbeat_audio.stop()
+	await get_tree().create_timer(1.0).timeout
+	transition_boom_audio.play()
+	await get_tree().create_timer(9).timeout
 	get_tree().change_scene_to_packed(SAVED_PATIENT)
+
+
+func _on_health_timer_timeout() -> void:
+	patient_lost()
+	
+func pause_animations():
+	marker_speed = 0
+	health_bar.material.set_shader_parameter("beat_speed", 0)
+	await get_tree().create_timer(1.1).timeout
+	black_screen.show()
+	await get_tree().create_timer(2.9).timeout
+	black_screen.set_material(null)
+	
