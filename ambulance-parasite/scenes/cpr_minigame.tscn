@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bfglvthi078c4"]
+[gd_scene load_steps=44 format=3 uid="uid://bfglvthi078c4"]
 
 [ext_resource type="Script" uid="uid://dkp3jriuu0cky" path="res://scripts/cpr_minigame.gd" id="1_2jrgg"]
 [ext_resource type="Texture2D" uid="uid://dj6fcacto53g7" path="res://sprites/ui/red_bar.png" id="2_40qy3"]
@@ -11,12 +11,23 @@
 [ext_resource type="FontFile" uid="uid://ctvj013nciqhp" path="res://fonts/vcr_osd_mono_1.001.ttf" id="9_coi4a"]
 [ext_resource type="AudioStream" uid="uid://b3mgeflmb14ua" path="res://sounds/heartbeats-61.mp3" id="9_lqg2v"]
 [ext_resource type="Shader" uid="uid://cdaghx2ghqgri" path="res://shaders/heartbeat.gdshader" id="10_8p4xw"]
+[ext_resource type="Shader" uid="uid://340723gmrrt8" path="res://scenes/cracked_glass.gdshader" id="10_fq77h"]
+[ext_resource type="Texture2D" uid="uid://bjxow6frekgx8" path="res://sprites/ui/infection_bar_full.png" id="10_pd8k3"]
 [ext_resource type="Texture2D" uid="uid://c3ufenux1hnva" path="res://sprites/ui/health_bar.png" id="11_4hrb3"]
 [ext_resource type="AudioStream" uid="uid://cbdnmfx5brho5" path="res://sounds/ost/mp3/transition_boom.mp3" id="12_8liec"]
 [ext_resource type="Shader" uid="uid://csga0icddpyx4" path="res://shaders/shake.gdshader" id="13_1uvk3"]
 [ext_resource type="AudioStream" uid="uid://cbx3w5nlj8udd" path="res://sounds/ost/patient_wakes_up.mp3" id="14_1y4gs"]
+[ext_resource type="AudioStream" uid="uid://spgwlpfj8qi0" path="res://sounds/unfriendly.wav" id="16_fgx2j"]
+[ext_resource type="AudioStream" uid="uid://eaf4nobsu1hl" path="res://sounds/ost/mp3/Special Ambiences/pressure_mp_emh_1.wav" id="17_1iblr"]
+[ext_resource type="AudioStream" uid="uid://bosfbmeswa4au" path="res://sounds/257235__javierzumer__ui-interface-negative.wav" id="20_nl5np"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nl5np"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2l54m"]
+shader = ExtResource("10_8p4xw")
+shader_parameter/beat_speed = 0.99000004376512
+shader_parameter/pulse_strength = 0.050000002375
+shader_parameter/pulse_mode = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m50jn"]
 size = Vector2(11, 15)
@@ -136,34 +147,24 @@ animations = [{
 "speed": 1.0
 }]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_os4ng"]
-shader = ExtResource("5_40qy3")
-shader_parameter/overlay = true
-shader_parameter/scanlines_opacity = 0.4
-shader_parameter/scanlines_width = 0.25
-shader_parameter/grille_opacity = 0.3
-shader_parameter/resolution = Vector2(640, 480)
-shader_parameter/pixelate = true
-shader_parameter/roll = false
-shader_parameter/roll_speed = 8.0
-shader_parameter/roll_size = 0.0
-shader_parameter/roll_variation = 1.8
-shader_parameter/distort_intensity = 0.05
-shader_parameter/noise_opacity = 0.4
-shader_parameter/noise_speed = 5.0
-shader_parameter/static_noise_intensity = 0.06
-shader_parameter/aberration = 4.7499999933364734e-08
-shader_parameter/brightness = 1.4
-shader_parameter/discolor = false
-shader_parameter/warp_amount = 0.0
-shader_parameter/clip_warp = false
-shader_parameter/vignette_intensity = 0.4
-shader_parameter/vignette_opacity = 0.5
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_swde8"]
 shader = ExtResource("6_xfdd2")
 shader_parameter/scale = Vector2(1, 1)
 shader_parameter/strength = 0.5
+shader_parameter/fps = 6.0
+shader_parameter/noise = ExtResource("7_2l54m")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_os4ng"]
+shader = ExtResource("10_fq77h")
+shader_parameter/u_main_color = Color(0, 0.2, 0, 1)
+shader_parameter/u_channel_color = Color(1, 1, 1, 1)
+shader_parameter/u_speed = 1.0
+shader_parameter/u_position = Vector3(0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fq77h"]
+shader = ExtResource("6_xfdd2")
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/strength = 30.0
 shader_parameter/fps = 6.0
 shader_parameter/noise = ExtResource("7_2l54m")
 
@@ -182,6 +183,17 @@ shader_parameter/flash_color = Color(0.51375306, 1.11904e-06, 1.92523e-07, 1)
 
 [node name="CPR_minigame" type="Node2D"]
 script = ExtResource("1_2jrgg")
+
+[node name="veins_screen" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_nl5np")
+offset_left = -264.0
+offset_top = -144.0
+offset_right = -224.0
+offset_bottom = -104.0
+rotation = -0.009715873
+scale = Vector2(15.735816, 7.8955703)
+mouse_filter = 2
 
 [node name="RedBar" type="Sprite2D" parent="."]
 unique_name_in_owner = true
@@ -238,7 +250,6 @@ text = "To perform CPR:
 "
 
 [node name="debug_label" type="Label" parent="."]
-visible = false
 offset_left = -85.0
 offset_top = -36.0
 offset_right = 277.0
@@ -257,6 +268,7 @@ text = "
 - ask for help if you need it :)"
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0.23921569)
 material = SubResource("ShaderMaterial_2jrgg")
 offset_left = -54.999996
@@ -270,6 +282,7 @@ position = Vector2(200, 0)
 
 [node name="infection_animation" type="AnimatedSprite2D" parent="infection_bar"]
 unique_name_in_owner = true
+visible = false
 material = SubResource("ShaderMaterial_tguor")
 position = Vector2(-1, -1)
 scale = Vector2(1.0331105, 1)
@@ -278,23 +291,12 @@ frame_progress = 0.9435673
 
 [node name="CanvasLayer" type="CanvasLayer" parent="infection_bar"]
 
-[node name="ColorRect" type="ColorRect" parent="infection_bar"]
-visible = false
-material = SubResource("ShaderMaterial_os4ng")
-offset_left = -56.0
-offset_top = -8.0
-offset_right = -16.0
-offset_bottom = 32.0
-scale = Vector2(2.7665863, 0.35424906)
-mouse_filter = 2
-color = Color(1, 1, 1, 0.1764706)
-
 [node name="let_us_help" type="Button" parent="infection_bar"]
 material = SubResource("ShaderMaterial_swde8")
-offset_left = -39.0
-offset_top = 11.999992
-offset_right = 65.0
-offset_bottom = 42.999992
+offset_left = -38.0
+offset_top = 7.9999986
+offset_right = 74.0
+offset_bottom = 39.0
 scale = Vector2(0.7489059, 0.64704967)
 focus_mode = 0
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
@@ -310,7 +312,18 @@ offset_top = -1.1444092e-05
 offset_right = 41.33528
 offset_bottom = 39.99999
 scale = Vector2(2.5723014, 0.82314897)
-mouse_filter = 1
+mouse_filter = 2
+
+[node name="progress_infection_bar" type="TextureProgressBar" parent="infection_bar"]
+material = SubResource("ShaderMaterial_fq77h")
+offset_left = -65.0
+offset_top = -10.0
+offset_right = 51.0
+offset_bottom = 30.0
+scale = Vector2(1.1572576, 0.83035225)
+mouse_filter = 2
+fill_mode = 1
+texture_progress = ExtResource("10_pd8k3")
 
 [node name="heartbeat_audio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_lqg2v")
@@ -364,6 +377,18 @@ color = Color(0.101960786, 0.101960786, 0.101960786, 1)
 [node name="patient_wakes_up_audio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("14_1y4gs")
 
+[node name="response_audio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_fgx2j")
+volume_db = -30.0
+
+[node name="pressure_ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_1iblr")
+volume_db = -15.0
+autoplay = true
+
+[node name="hit_red" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_nl5np")
+
 [connection signal="body_entered" from="GreenZone/green_area" to="." method="_on_green_area_body_entered"]
 [connection signal="body_exited" from="GreenZone/green_area" to="." method="_on_green_area_body_exited"]
 [connection signal="body_entered" from="area_left" to="." method="_on_area_left_body_entered"]
@@ -371,3 +396,4 @@ stream = ExtResource("14_1y4gs")
 [connection signal="pressed" from="infection_bar/let_us_help" to="." method="_on_let_us_help_pressed"]
 [connection signal="finished" from="heartbeat_audio" to="." method="_on_heartbeat_audio_finished"]
 [connection signal="timeout" from="health_timer" to="." method="_on_health_timer_timeout"]
+[connection signal="finished" from="pressure_ambience" to="." method="_on_pressure_ambience_finished"]

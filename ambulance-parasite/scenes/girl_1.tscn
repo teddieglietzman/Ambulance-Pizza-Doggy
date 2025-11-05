@@ -342,7 +342,7 @@ shader_parameter/pixelate = true
 shader_parameter/roll = false
 shader_parameter/roll_speed = 8.0
 shader_parameter/roll_size = 0.0
-shader_parameter/roll_variation = 1.8
+shader_parameter/roll_variation = 0.95500004210262
 shader_parameter/distort_intensity = 0.05
 shader_parameter/noise_opacity = 0.4
 shader_parameter/noise_speed = 5.0
@@ -381,7 +381,7 @@ mesh = SubResource("ArrayMesh_3x0r5")
 skeleton = NodePath("")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, 4.5207122e-15, 8.742276e-08, 7.014538e-08, 0.59682727, 0.8023698, -5.2176286e-08, 0.8023698, -0.59682727, 0.8328005, 0.6919452, -0.21345854)
+transform = Transform3D(-1, 4.5207122e-15, 8.742276e-08, 7.014538e-08, 0.59682727, 0.8023698, -5.2176286e-08, 0.8023698, -0.59682727, 0.8328005, 0.6919452, -0.16818261)
 
 [node name="road" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -435,6 +435,7 @@ material = SubResource("ShaderMaterial_4ifk0")
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(28.813759, 16.190397)
+mouse_filter = 2
 
 [node name="cpr_node" type="Node2D" parent="ui_holder"]
 unique_name_in_owner = true

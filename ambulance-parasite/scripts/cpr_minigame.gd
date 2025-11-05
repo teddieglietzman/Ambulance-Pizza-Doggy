@@ -4,8 +4,12 @@ const DEAD_PATIENT = preload("uid://dvbwvgt47omii")
 const INFECTED_PATIENT = preload("uid://b0x72lmin5ddc")
 const SAVED_PATIENT = preload("uid://b5g1g2pil4yuo")
 
+@onready var veins_screen: ColorRect = $veins_screen
+var vein_wiggle = 0.0
+
 @onready var transition_boom_audio: AudioStreamPlayer = $transition_boom_audio
 @onready var patient_wakes_up_audio: AudioStreamPlayer = $patient_wakes_up_audio
+@onready var hit_red: AudioStreamPlayer = $hit_red
 
 @onready var black_screen: ColorRect = $black_screen
 
@@ -28,6 +32,8 @@ var marker_speed = clampf(30, 30, 60)
 var marker_range_array = [-54, 54]
 var direction = 1
 
+@onready var pressure_ambience: AudioStreamPlayer = $pressure_ambience
+@onready var progress_infection_bar: TextureProgressBar = $infection_bar/progress_infection_bar
 
 
 var infection_points = 0
@@ -45,7 +51,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	wiggle_veins()
 	
 
 	
@@ -58,7 +64,7 @@ func _physics_process(delta: float) -> void:
 		health_points += 1
 		patient_health()
 	if !green and Input.is_action_just_pressed("Interact"):
-		health_points -= 0.5
+		health_points -= 1.0
 		check_health_points(health_points)
 	
 
@@ -108,14 +114,25 @@ func patient_infected():
 	await get_tree().create_timer(9).timeout
 	get_tree().change_scene_to_packed(INFECTED_PATIENT)
 
+func wiggle_veins():
+	
+	veins_screen.material.set_shader_parameter("crack_zebra_scale", randf_range(0.1, 10.0))
 
 func _on_let_us_help_pressed() -> void:
+	await get_tree().create_timer(1).timeout
+	for x in -10:
+		pressure_ambience.pitch_scale = x
+	await get_tree().create_timer(0.2).timeout
+	pressure_ambience.pitch_scale = 1
+	pressure_ambience.volume_db = -10.0
 	health_timer.start(100)
 	reset_speed()
 	heartbeat_audio.pitch_scale = 1.0
 	infection_points += 1
-	infection_animation.frame += 1 
-	if infection_points > 7 and infection_animation.frame == 8:
+	progress_infection_bar.value += 20
+	await get_tree().create_timer(3).timeout
+	pressure_ambience.volume_db = -15.0
+	if infection_points > 5 and progress_infection_bar.value == 100:
 		patient_infected()
 
 func _input(event: InputEvent) -> void:
@@ -136,14 +153,21 @@ func patient_lost():
 	
 
 func check_health_points(health: float):
-	if health < -15.0:
+	black_screen.show()
+	hit_red.play()
+	await get_tree().create_timer(0.1).timeout
+	black_screen.hide()
+	if health < -10.0:
 		heartbeat_audio.pitch_scale = 1.15
-	if health < -30.0:
+	if health < -20.0:
 		heartbeat_audio.pitch_scale = 1.30
-	if health < -45.0:
+	if health < -30.0:
 		heartbeat_audio.pitch_scale = 1.45
+	if health < -31.0:
+		patient_lost()
 	
-
+func update_red_health():
+	health_bar.value = health_timer.time_left - 5
 
 func _on_heartbeat_audio_finished() -> void:
 	heartbeat_audio.play()
@@ -151,7 +175,7 @@ func _on_heartbeat_audio_finished() -> void:
 func update_health():
 	health_bar.value = health_timer.time_left
 func patient_health():
-	if health_points > 40.0:
+	if health_points > 50.0:
 		saved_paused_animations()
 
 func patient_saved():
@@ -189,3 +213,9 @@ func saved_paused_animations():
 	patient_wakes_up_audio.play()
 	await get_tree().create_timer(7).timeout
 	patient_saved()
+
+
+
+
+func _on_pressure_ambience_finished() -> void:
+	pressure_ambience.play()
